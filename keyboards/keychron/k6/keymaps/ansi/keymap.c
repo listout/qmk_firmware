@@ -115,14 +115,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FN2] = LAYOUT_65_ansi(
         KC_TILD, KC_F1,   KC_F2,     KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  RESET,           _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_PSCR,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
     ),
     [RGB_BASE] = LAYOUT_65_ansi(
         _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_PSCR,
+        _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______,                             _______,                            _______, _______, _______, _______, _______, _______
     ),
@@ -178,8 +178,12 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
             rgb_matrix_sethsv(HSV_BLACK);
             for (int i = 0; i < 15; i++) {
                 if (i == 13) continue;
-                rgb_matrix_set_color(i, RGB_CYAN);
+                rgb_matrix_set_color(i, RGB_ORANGE);
             }
+            rgb_matrix_set_color(25, RGB_ORANGE);
+            rgb_matrix_set_color(26, RGB_ORANGE);
+            rgb_matrix_set_color(27, RGB_ORANGE);
+            rgb_matrix_set_color(62, RGB_ORANGE);
             break;
         case FN2:
             rgb_matrix_sethsv(HSV_BLACK);
@@ -187,7 +191,7 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(i, RGB_GREEN);
             }
             rgb_matrix_set_color(13, RGB_RED);
-            rgb_matrix_set_color(14, RGB_GREEN);
+            rgb_matrix_set_color(43, RGB_GREEN);
             break;
         case RGB_CHANGE:
             rgb_matrix_set_color(11, RGB_CORAL);
@@ -201,15 +205,9 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
             break;
         case RGB_BASE:
             rgb_matrix_sethsv(HSV_BLACK);
-            for (int i = 14; i < 24; i++) {
-                if (i == 15) continue;
+            for (int i = 16; i < 24; i++) {
                 rgb_matrix_set_color(i, RGB_YELLOW);
             }
-            rgb_matrix_set_color(43, RGB_YELLOW);
-            rgb_matrix_set_color(56, RGB_YELLOW);
-            rgb_matrix_set_color(65, RGB_YELLOW);
-            rgb_matrix_set_color(66, RGB_YELLOW);
-            rgb_matrix_set_color(67, RGB_YELLOW);
             break;
 #ifdef MOUSE_ENABLE
         case MOUSE_LAYER:
@@ -240,23 +238,6 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
     }
 }
 
-/*LEADER_EXTERNS();*/
-
-/*
- *void matrix_scan_user(void) {
- *    LEADER_DICTIONARY() {
- *        leading = false;
- *        leader_end();
- *
- *        SEQ_ONE_KEY(KC_F) {
- *            // Anything you can do in a macro.
- *            // SEND_STRING("QMK is awesome.");
- *            toggle_vim_mode();
- *        }
- *    }
- *}
- */
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef USE_VIM
     // Process vim mode
@@ -273,25 +254,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #endif
-    /*
-     *switch (keycode) {
-     *    case KC_MISSION_CONTROL:
-     *        if (record->event.pressed) {
-     *            host_consumer_send(0x29F);
-     *        } else {
-     *            host_consumer_send(0);
-     *        }
-     *        return false;  // Skip all further processing of this key
-     *    case KC_LAUNCHPAD:
-     *        if (record->event.pressed) {
-     *            host_consumer_send(0x2A0);
-     *        } else {
-     *            host_consumer_send(0);
-     *        }
-     *        return false;  // Skip all further processing of this key
-     *    default:
-     *        return true;  // Process all other keycodes normally
-     *}
-     */
     return true;
 }
