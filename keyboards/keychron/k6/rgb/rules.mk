@@ -9,7 +9,7 @@ BACKLIGHT_ENABLE = no
 MAGIC_ENABLE = yes
 MAGIC_KEYCODE_ENABLE = yes
 BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no    # Mouse keys
+MOUSEKEY_ENABLE = yes    # Mouse keys
 EXTRAKEY_ENABLE = yes   # Audio control and System control
 CONSOLE_ENABLE = no     # Console for debug
 COMMAND_ENABLE = no     # Commands for debug and configuration
@@ -31,3 +31,5 @@ RGB_MATRIX_DRIVER = SN32F24xB
 SRC = ../../../drivers/led/sn32/matrix_sn32f24xx.c
 
 DEFAULT_FOLDER = keychron/k6/rgb/ansi
+
+include $(KEYBOARD_PATH_2)/$(KEYMAP)/qmk-vim/rules.mk
