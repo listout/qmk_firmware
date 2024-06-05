@@ -18,9 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif
+
+#ifdef USE_VIM
 #include "qmk-vim/src/vim.h"
+#include "qmk-vim/src/modes.h"
+#endif
+
 #include QMK_KEYBOARD_H
-#define VIM_W_BEGINNING_OF_WORD
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -244,6 +248,7 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
  */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef USE_VIM
     // Process vim mode
     if (!process_vim_mode(keycode, record)) {
         return false;
@@ -252,6 +257,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         toggle_vim_mode();
         return false;
     }
+    if (record->event.pressed && keycode == LCTL(KC_S)) {
+        normal_mode();
+        tap_code16(keycode);
+        return false;
+    }
+#endif
     /*
      *switch (keycode) {
      *    case KC_MISSION_CONTROL:
