@@ -36,8 +36,10 @@ enum layer_names {
     FN2,
     RGB_BASE,
     RGB_CHANGE,
+#ifdef MOUSE_ENABLE
     MOUSE_LAYER,
     MOUSE_LAYER_2,
+#endif
 };
 
 enum custom_keycodes {
@@ -71,7 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I, KC_O,    KC_P,     KC_LBRC,     KC_RBRC, KC_BSLASH,          KC_HOME,
         QMK_VIM, KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K, KC_L,    KC_SCLN,  KC_QUOT,              KC_ENT,             KC_PGUP,
         KC_LSFT,          KC_Z,    KC_X, KC_C, KC_V, KC_B,   KC_N, KC_M, KC_COMM, KC_DOT,   KC_SLSH,              KC_RSFT,   KC_UP,   KC_PGDOWN,
+#ifdef MOUSE_ENABLE
         KC_LCTL, KC_LGUI, KC_LALT,                LT(MOUSE_LAYER, KC_SPC),                      LT(RGB_BASE, KC_RCTRL), MO(WIN_FN1), MO(FN2), KC_LEFT,   KC_DOWN, KC_RGHT
+#else
+        KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,                      LT(RGB_BASE, KC_RCTRL), MO(WIN_FN1), MO(FN2), KC_LEFT,   KC_DOWN, KC_RGHT
+#endif
     ),
     /* Windows FN1
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
@@ -127,6 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          _______, _______,  _______, _______, _______, _______, _______, _______, _______,  _______,          _______, RGB_SAI, _______,
         _______, _______, _______,                             _______,                            _______,  _______, _______, RGB_HUD, RGB_SAD, RGB_HUI
     ),
+#ifdef MOUSE_ENABLE
     [MOUSE_LAYER] = LAYOUT_65_ansi(
         _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
@@ -141,6 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______,                             _______,                            _______, _______, _______, _______, _______, _______
     )
+#endif
 };
 
 void keyboard_post_init_user(void) {
@@ -203,6 +211,7 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(66, RGB_YELLOW);
             rgb_matrix_set_color(67, RGB_YELLOW);
             break;
+#ifdef MOUSE_ENABLE
         case MOUSE_LAYER:
             rgb_matrix_sethsv(HSV_BLACK);
             rgb_matrix_set_color(36, RGB_PINK);
@@ -217,6 +226,7 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(38, RGB_TURQUOISE);
             rgb_matrix_set_color(39, RGB_TURQUOISE);
             break;
+#endif
         default: //  for any other layers, or the default layer
             hsv = rgb_matrix_get_hsv();
 #ifdef CONSOLE_ENABLE
