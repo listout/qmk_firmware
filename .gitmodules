@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "keyboards/keychron/k6/rgb/ansi/qmk-vim"]
+	path = keyboards/keychron/k6/rgb/ansi/qmk-vim
+	url = https://github.com/andrewjrae/qmk-vim.git
