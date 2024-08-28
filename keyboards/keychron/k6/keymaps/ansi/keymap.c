@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef USE_VIM
 #include "qmk-vim/src/vim.h"
 #include "qmk-vim/src/modes.h"
-int vim_mode = 0;
 #endif
 
 #include QMK_KEYBOARD_H
