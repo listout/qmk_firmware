@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef USE_VIM
 #include "qmk-vim/src/vim.h"
 #include "qmk-vim/src/modes.h"
+int vim_mode = 0;
 #endif
 
 #include QMK_KEYBOARD_H
@@ -234,6 +235,9 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
             if (hsv.h == 0 && hsv.s == 0 && hsv.v == 0)
                 hsv = hsv_y;
             rgb_matrix_sethsv(hsv.h, hsv.s, hsv.v);
+            if (vim_mode_enabled()) {
+                rgb_matrix_set_color(30, RGB_RED);
+            }
             break;
     }
 }
