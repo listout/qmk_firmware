@@ -235,9 +235,11 @@ void rgb_matrix_indicators_advanced_user (uint8_t led_min, uint8_t led_max) {
             if (hsv.h == 0 && hsv.s == 0 && hsv.v == 0)
                 hsv = hsv_y;
             rgb_matrix_sethsv(hsv.h, hsv.s, hsv.v);
+#ifdef USE_VIM
             if (vim_mode_enabled()) {
                 rgb_matrix_set_color(30, RGB_RED);
             }
+#endif
             break;
     }
 }
